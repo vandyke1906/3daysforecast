@@ -13,6 +13,7 @@ import Image from "antd/lib/image";
 import Card from "antd/lib/card";
 import Segmented from "antd/lib/segmented";
 import Skeleton from "antd/lib/skeleton";
+import Spin from "antd/lib/spin";
 
 const FORECAST_KEY = Object.freeze({
     Day: "Day",
@@ -28,6 +29,7 @@ const CurrentForecast = () => {
     const [currentForecast, setCurrentForecast] = useState(null);
 
     const [isFetching, setIsFetching] = useState(false);
+    const [isFetchingLocation, setIsFetchingLocation] = useState(false);
     const [selectedForecastIndex, setSelectedForecastIndex] = useState(0);
 
 
@@ -49,10 +51,11 @@ const CurrentForecast = () => {
             setLocationOptions([]);
             return;
         }
+        setIsFetchingLocation(true)
         WeatherApi.searchLocation(value).then(result => {
             if (Array.isArray(result))
                 setLocationOptions(result.map(r => ({ value: r.Key, label: `${r.LocalizedName}, ${r.Country.LocalizedName}` })));
-        }).catch(console.error)
+        }).catch(console.error).finally(() => setIsFetchingLocation(false))
     }
 
     const onSelectLocation = (value) => {
@@ -352,6 +355,7 @@ const CurrentForecast = () => {
                         placeholder="Search city"
                         optionFilterProp="children"
                         showArrow={false}
+                        notFoundContent={isFetchingLocation ? <Spin size="small" /> : null}
                         allowClear
                         onSearch={debounce(onLocationChange)}
                         onChange={onSelectLocation}
