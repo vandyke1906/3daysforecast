@@ -1,0 +1,72 @@
+@import '~antd/dist/antd.css';
+
+$primary-color: #0077d3;
+$red-color: #fa0425;
+$blue-color: #00779b;
+$green-color: #00943e;
+
+.current_forecast_container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+
+    .date_container {
+        display: flex;
+        justify-content: center;
+    }
+
+    .temperature_container {
+        display: flex;
+        justify-content: center;
+    }
+
+    .weather_detail {
+        display: flex;
+        justify-content: center;
+    }
+
+    .title {
+        text-align: center;
+    }
+
+    .other_details {
+        background-color: #fff;
+    }
+
+    .forecast_list_container {
+        margin-top: 50px;
+
+        .forecast-miniview-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    }
+}
+
+.center {
+    text-align: center;
+}
+
+.primary {
+    color: $primary-color !important;
+}
+
+.red {
+    color: $red-color !important;
+}
+
+
+.green {
+    color: $green-color !important;
+}
+
+
+.blue {
+    color: $blue-color !important;
+}
+
+.white-space {
+    white-space: break-spaces;
+}
