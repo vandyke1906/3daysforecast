@@ -12,9 +12,13 @@ const weatherApiKey = process.env.WEATHER_API;
 const weatherApi = new WeatherAPI(weatherApiKey);
 
 app.use(cors())
-app.use(express.static("../frontend/build"));
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
+
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static("../frontend/build"));
+    app.get("*", (req, res) => res.sendFile(path.resolve(__dirname, "../frontend/build", "index.html")));
+}
 
 app.get("/api/get-location", (req, res) => {
     const location = req.query?.location || "";
